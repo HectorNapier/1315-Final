@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 28 & 29 Demonstration: User Input & Validation</title>
+</head>
+<body>
+    <div>
+    <h1>User Input</h1>
+    <button type="button" onclick="promptMethod()">Prompt Method</button>
+    <script>
+        function promptMethod(){
+            var name=prompt("Please enter your name:");
+            //if user did not enter anything
+            if(name==""){ //checking for an empty string
+                alert("You did not enter your name."); //displaying back as an alert
+            } else { //if user did enter a name
+                alert("Hello, " + name); //displaying back as an alert
+            }
+        }
+    </script>
+    </div> 
+    <hr>
+    <div>
+    Enter your name: <input type="text" id="name"> <button type="button" onclick="inputText()">Using Text Inputs</button>
+    <p id="result"></p>
+    <script>
+        function inputText(){
+            var name1 = document.getElementById("name").value;
+            //if user did not enter anything
+            if(name1==""){ //checking for an empty string
+                document.getElementById("result").innerHTML="You did not enter a name."; //displaying back in an HTML element
+            } else { //if user did enter a name
+                document.getElementById("result").innerHTML="Hello, "+name1; //displaying back in an HTML element
+            }
+        }
+    </script>
+    </div>
+    <hr>
+    <div>
+    <button type="button" onclick="conditionStatements()">Click me to see important info!</button>
+    <p id="result1"></p>
+    <script>
+        function conditionStatements(){
+            var dateToday = new Date(); //variable to hold today's date and time
+            var currentDayOfWeek= dateToday.getDay(); //current day of the week
+            var currentDate=dateToday.getDate(); //current day
+            var currentHour = dateToday.getHours(); //current hour
+            var currentMin = dateToday.getMinutes(); //current min
+            var currentMonth = dateToday.getMonth() +1; //current month
+            const DUEMONTH = 4; //due month
+            const DUEDAY = 11; //due date
+            const DUEHOUR = 23; //due hour
+            const DUEMINUTE = 59; //due min
+            var decisions = prompt("Do you know what today is? Type yes or no: "); //asking for user input
+            var text=""; //empty variable to hold text from case clauses
+            if(decisions.toLowerCase()=="no"){ //if the user entered no
+            // if the current date is less that the due date of the 5th, then execute this code:
+                if(currentDate<DUEDAY){
+                    // passing in the day of week as an aruguement in our switch statement
+                    switch(currentDayOfWeek){
+                        case 0:
+                            text="Today is Sunday. You have "+(DUEDAY-currentDate) +" days, " +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 1:
+                            text="Today is Monday. You have "+(DUEDAY-currentDate) +" days, " +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 2: 
+                            text="Today is Tuesday. You have "+(DUEDAY-currentDate) +" days," +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 3:
+                            text="Today is Wednesday. You have "+(DUEDAY-currentDate) +" days, " +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 4:
+                            text="Today is Thursday. You have "+(DUEDAY-currentDate) +" days, " +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 5: 
+                            text="Today is Friday. You have "+(DUEDAY-currentDate) +" days," +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                        case 6:
+                            text="Today is Saturday. You have "+(DUEDAY-currentDate) +" days," +(DUEHOUR-currentHour)+" hours, and "+(DUEMINUTE-currentMin)+" minutes to complete coursework by the due date.";
+                            break;
+                    }
+                    document.getElementById("result1").innerHTML=text; //displaying back in an HTML element
+                } else { //if the current date is not less than the due date of the 16th, then execute this code:
+                    document.getElementById("result1").innerHTML="The due date for Week 12 has passed. Please be mindful of due dates and do not fall behind in coursework."   
+                }
+            } else { //if the user entered yes
+                document.getElementById("result1").innerHTML="The due date for Week 12 coursework is Tuesday, April 11 by 11:59pm."
+            }     
+        }
+    </script>
+    </div>
+    <hr>
+    <div>
+    <p>Using radio buttons as user input:</p>
+    <p>Pick One!</p>
+    <form name="myform">
+        <input type="radio" name="fav_language" value="HTML">HTML<br>
+        <input type="radio" name="fav_language" value="CSS">CSS<br>
+        <input type="radio" name="fav_language" value="JavaScript">JavaScript
+        <br>
+        <input type="button" id="button" onclick="radioButton()" value="Submit">
+        <p id="result2"></p>
+    </form>
+    <script>
+        //getElementsByName is similiar to getElementbyid. We are getting the value from the name attribute of "fav_language"
+        var radio = document.getElementsByName("fav_language");
+  
+        function radioButton(){
+            for(let i=0;i<radio.length;i++){
+                if (radio[i].checked) {
+                    if(radio[i].value=="HTML"){
+                        alert("HTML stands for Hypertext Markup Language.");
+                        break;
+                    } else if(radio[i].value=="CSS"){
+                        alert("CSS stands for Cascading Style Sheets.");
+                        break;
+                    } else {
+                        alert("JavaScript is the programming language of the web.")
+                        break;
+                    }
+                }
+            }
+        }
+        
+           
+        
+    </script>
+    </div>
+    <hr>
+    <div>
+    <h2>Validating text box as containing a number or string data type using Regular Expressions (or regex):</h2>
+    <p><i>Hover your mouse over the text box. You will see a popup for "Please fill out this field" because we added the <b>required</b> attribute.</i></p>
+    <p>Regex which allows only letters: /^[A-Za-z]+$/</p>
+    <p>Regex which allows only letters and numbers: /^[0-9a-zA-Z]+$/</p>
+    Enter your name: <input type="text" id="name2" required> <button type="button" onclick="required()">Checking for letters</button><br>
+    Enter a combo of letters & numbers with no spaces: <input type="text" id="name3" required> <button type="button" onclick="lettersAndNums()">Checking for letters and numbers</button>
+    </div>
+    <hr>
+    <div>
+    <h3>Validating numbers</h3>
+    <p>Regex which allows only positive integers: /^[0-9]+$/</p>
+    <p>Regex which allows positive or negative integers: /^[-+]?[0-9]+$/</p>
+    <p>Regex which allows only positive float numbers: /^[0-9]+\.[0-9]+$/</p>
+    <p>Regex which allows positive or negative float numbers: /^[-+]?[0-9]+\.[0-9]+$/</p>
+    Enter a integer: <input type="text" id="number1" required> <button type="button" onclick="checkInt()">Checking non-negative integers</button><br>
+    Enter a integer: <input type="text" id="number2" required> <button type="button" onclick="checkAllInt()">Checking negative and positive integers</button><br>
+    Enter a number with a decimal: <input type="text" id="number3" required> <button type="button" onclick="checkFloat()">Checking non-negative float numbers</button><br>
+    Enter a number with a decimal: <input type="text" id="number4" required> <button type="button" onclick="checkAllFloat()">Checking negative and positive float nnbers</button>
+    <script>
+        // function required(){ //verifying the user entered something by the length property
+        //     var requiredName = document.getElementById("name2").value;
+        //     if(requiredName.length==0){
+        //         alert("You did not enter a name.");
+        //     } else {
+        //         alert("Hello, "+ requiredName+"!");
+        //     }
+        // }
+        function required(){//verifying the user entered only text
+            // var letters = /^[A-Za-z]+$/;
+            var letters = new RegExp("^[A-Za-z]+$");
+            var userName=document.getElementById("name2").value;
+            if(userName.match(letters)){
+                alert("Hello, "+ userName+"!");
+            } else {
+                alert("You did not enter a name.");
+            }
+        }
+        function lettersAndNums(){
+            var lettersNum = /^[0-9a-zA-Z]+$/;
+            var userLetterNums=document.getElementById("name3").value;
+            if(userLetterNums.match(lettersNum)){
+                alert("The alphanumeric characters you entered are: "+userLetterNums);
+            } else {
+                alert("You did not enter alphanumeric characters.");
+            }
+        }
+        function checkInt(){
+            var numbers = /^[0-9]+$/;
+            var userNum=document.getElementById("number1").value;
+            if(userNum.match(numbers)){
+                alert("Integer.");
+            } else {
+                alert("Not an integer.");
+            }
+        }
+        function checkAllInt(){
+            var numbers = /^[-+]?[0-9]+$/;
+            var userNum=document.getElementById("number2").value;
+            if(userNum.match(numbers)){
+                if(userNum>0){
+                    alert("Positive integer.");
+                } else if(userNum<0){
+                    alert("Negative integer.");
+                } else {
+                    alert("You entered 0.");
+                }
+            } else {
+                alert("Not an integer.");
+            }
+        }
+        function checkFloat(){
+            var numbers = /^[0-9]+\.[0-9]+$/;
+            var userNum=document.getElementById("number3").value;
+            if(userNum.match(numbers)){
+                alert("Float number");
+            } else {
+                alert("Not a float number.");
+            }
+        }
+        function checkAllFloat(){
+            var numbers = /^[-+]?[0-9]+\.[0-9]+$/;
+            var userNum=document.getElementById("number4").value;
+            if(userNum.match(numbers)){
+                if(userNum>0){
+                    alert("Positive float number.");
+                } else if(userNum<0){
+                    alert("Negative float number.");
+                } else {
+                    alert("You entered 0.");
+                }
+            } else {
+                alert("Not a float number.");
+            }
+        }
+    </script>
+    </div>
+    <hr>
+    <div>
+    <h2>Validating a phone number using regex.</h2>
+    <p>Regex which allows a 10 digit number with no spaces or dashes: /^\d{10}$/</p>
+    <p>Regex which allows a 10 digit number with spaces, dashes, or a period: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/</p>
+    Enter a 10 digit phone number with no dashes: <input type="text" id="number5" required> <button type="button" onclick="checkPhone()">Check phone number no dashes</button><br>
+    Enter a 10 digit phone number with dashes, spaces or periods: <input type="text" id="number6" required> <button type="button" onclick="checkPhoneDash()">Check phone number no dashes</button><br>
+    <script>
+        function checkPhone(){
+            var numbers = /^\d{10}$/;
+            var userNum=document.getElementById("number5").value;
+            if(userNum.match(numbers)){
+                alert("Phone number verified.");
+            } else {
+                alert("You did not enter a phone number.");
+            }
+        }
+        function checkPhoneDash(){
+            var numbers = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            var userNum=document.getElementById("number6").value;
+            if(userNum.match(numbers)){
+                alert("Phone number verified.");
+            } else {
+                alert("You did not enter a phone number.");
+            }
+        }
+    </script>
+    </div>
+    <hr>
+    <div>
+    <h2>Using a loop to validate user input</h2>
+    Please enter your zip code: <input type="text" id="zipCode" required> <button type="button" onclick="zipLoop()">Using a loop to verify numbers</button><br>
+    <p id="zipResult"></p>
+    <script>
+        function zipLoop(){
+            var zipCode = document.getElementById("zipCode").value;
+            var length = zipCode.length;
+            var text="";
+            for(let i=0; i<length; i++){
+                text += "The number is " + zipCode[i] + "<br>";
+            }
+            document.getElementById("zipResult").innerHTML=text;
+        }
+    </script>
+    </div>
+</body>
+</html>
